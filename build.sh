@@ -18,3 +18,8 @@ fi
 # Apply patches
 patches=$(ls -1 patches/*.patch)
 patch -r - --forward --strip=1 --directory=src/linux < ${patches}
+
+# Configure kernel
+if [ ! -e src/linux/.config ]; then
+	KERNEL=kernel ARCH=arm CROSS_COMPILE=arm-linux-gnu- make -C src/linux bcmrpi_defconfig
+fi
