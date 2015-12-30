@@ -59,3 +59,7 @@ cp src/linux/arch/arm/boot/dts/overlays/*.dtb output/boot/overlays/.
 bootfiles=$(ls -1 boot_files | grep --invert-match config.txt.in | sed "s:^:boot_files/:")
 cp ${bootfiles} output/boot/.
 cat boot_files/config.txt.in | sed "s:@KERNEL_IMAGE@:linux-${kvers}.img:" > output/boot/config.txt
+
+# Install licence and readme files
+cp  src/linux/COPYING output/boot/COPYING.linux
+cp  src/linux/arch/arm/boot/dts/overlays/README output/boot/overlays/.
