@@ -25,4 +25,4 @@ if [ ! -e src/linux/.config ]; then
 fi
 
 # Build kernel, modules and dtb files
-KERNEL=kernel ARCH=arm CROSS_COMPILE=arm-linux-gnu- make --directory=src/linux --jobs zImage modules dtbs
+KERNEL=kernel ARCH=arm CROSS_COMPILE=arm-linux-gnu- make --directory=src/linux --jobs=9 zImage modules dtbs
