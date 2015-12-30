@@ -2,7 +2,7 @@
 
 wd=$(pwd)
 
-mkdir -p src output
+mkdir -p src output/overlays
 
 # Download repositories
 if [ ! -d src/linux ]; then
