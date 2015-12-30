@@ -47,3 +47,6 @@ rm -rf output/lib
 
 # Create boot directory
 mkdir -p output/boot/overlays
+
+# Install kernel
+src/tools/mkimage/mkknlimg --dtok src/linux/arch/arm/boot/zImage output/boot/linux-${kvers}.img
