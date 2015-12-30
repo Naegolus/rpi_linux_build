@@ -2,6 +2,13 @@
 
 wd=$(pwd)
 
+export KERNEL=kernel
+export ARCH=arm
+export CROSS_COMPILE=arm-linux-gnu-
+export INSTALL_MOD_PATH=${wd}/output
+
+kopt="--directory=src/linux --jobs=9"
+
 mkdir -p src
 rm -rf output
 
@@ -22,18 +29,20 @@ patch -r - --forward --strip=1 --directory=src/linux < ${patches}
 
 # Configure kernel
 if [ ! -e src/linux/.config ]; then
-	KERNEL=kernel ARCH=arm CROSS_COMPILE=arm-linux-gnu- make --directory=src/linux bcmrpi_defconfig
+	make ${kopt} bcmrpi_defconfig
 fi
 
 # Build kernel, modules and dtb files
-KERNEL=kernel ARCH=arm CROSS_COMPILE=arm-linux-gnu- make --directory=src/linux --jobs=9 zImage modules dtbs
+make ${kopt} zImage modules dtbs
 
 # Create output directory
 mkdir -p output
 
 # Install modules
-KERNEL=kernel ARCH=arm CROSS_COMPILE=arm-linux-gnu- INSTALL_MOD_PATH=${wd}/output make --directory=src/linux modules_install
-tar --create --gzip --file=output/modules.tar.gz --directory=output lib
+kvers=$(cat src/linux/include/generated/utsrelease.h | cut --delimiter="\"" --fields=2)
+make ${kopt} modules_install
+
+tar --create --gzip --file=output/modules-${kvers}.tar.gz --directory=output lib
 rm -rf output/lib
 
 # Create boot directory
