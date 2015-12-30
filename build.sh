@@ -23,3 +23,6 @@ patch -r - --forward --strip=1 --directory=src/linux < ${patches}
 if [ ! -e src/linux/.config ]; then
 	KERNEL=kernel ARCH=arm CROSS_COMPILE=arm-linux-gnu- make --directory=src/linux bcmrpi_defconfig
 fi
+
+# Build kernel, modules and dtb files
+KERNEL=kernel ARCH=arm CROSS_COMPILE=arm-linux-gnu- make --directory=src/linux --jobs zImage modules dtbs
