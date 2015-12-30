@@ -1,12 +1,17 @@
 diff --git a/drivers/net/ethernet/microchip/enc28j60_hw.h b/drivers/net/ethernet/microchip/enc28j60_hw.h
-index 25b41de..2bb2179 100644
+index 25b41de..0b1d57d 100644
 --- a/drivers/net/ethernet/microchip/enc28j60_hw.h
 +++ b/drivers/net/ethernet/microchip/enc28j60_hw.h
-@@ -304,6 +304,6 @@
+@@ -303,7 +303,10 @@
+ /* maximum ethernet frame length */
  #define MAX_FRAMELEN		1518
  
- /* Preferred half duplex: LEDA: Link status LEDB: Rx/Tx activity */
+-/* Preferred half duplex: LEDA: Link status LEDB: Rx/Tx activity */
 -#define ENC28J60_LAMPS_MODE	0x3476
++/* Preferred half duplex
++ * - LEDA (recommended green): Link status and Rx activity
++ * - LEDB (recommended orange): Tx activity
++ */
 +#define ENC28J60_LAMPS_MODE	0x3C12
  
  #endif
