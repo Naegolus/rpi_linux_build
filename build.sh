@@ -17,4 +17,4 @@ fi
 
 # Apply patches
 patches=$(ls -1 patches/*.patch)
-patch -p 1 -d src/linux < ${patches}
+patch -r - --forward --strip=1 --directory=src/linux < ${patches}
