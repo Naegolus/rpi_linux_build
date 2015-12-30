@@ -2,7 +2,8 @@
 
 wd=$(pwd)
 
-mkdir -p src output/boot/overlays
+mkdir -p src
+rm -rf output
 
 # Download repositories
 if [ ! -d src/linux ]; then
@@ -26,3 +27,14 @@ fi
 
 # Build kernel, modules and dtb files
 KERNEL=kernel ARCH=arm CROSS_COMPILE=arm-linux-gnu- make --directory=src/linux --jobs=9 zImage modules dtbs
+
+# Create output directory
+mkdir -p output
+
+# Install modules
+KERNEL=kernel ARCH=arm CROSS_COMPILE=arm-linux-gnu- INSTALL_MOD_PATH=${wd}/output make --directory=src/linux modules_install
+tar --create --gzip --file=output/modules.tar.gz --directory=output lib
+rm -rf output/lib
+
+# Create boot directory
+mkdir -p output/boot/overlays
