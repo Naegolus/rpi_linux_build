@@ -1,2 +1,2 @@
 # rpi_linux_build
-Provide kernel, modules, DTS and configuration files for Raspberry Pi
+Provide kernel, modules, device tree and configuration files for Raspberry Pi
