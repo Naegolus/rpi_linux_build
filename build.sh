@@ -56,6 +56,6 @@ cp src/linux/arch/arm/boot/dts/bcm2708-rpi-b.dtb output/boot/.
 cp src/linux/arch/arm/boot/dts/overlays/*.dtb output/boot/overlays/.
 
 # Install boot files
-bootfiles=$(ls -1 boot_files | grep -v config.txt.in | sed "s:^:boot_files/:")
+bootfiles=$(ls -1 boot_files | grep --invert-match config.txt.in | sed "s:^:boot_files/:")
 cp ${bootfiles} output/boot/.
 cat boot_files/config.txt.in | sed "s:@KERNEL_IMAGE@:linux-${kvers}.img:" > output/boot/config.txt
