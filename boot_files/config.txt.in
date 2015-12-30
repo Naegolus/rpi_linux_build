@@ -71,5 +71,4 @@ dtoverlay=enc28j60,speed=8000000
 dtdebug=on
 
 # Kernel image. Standard: kernel.img
-#kernel=u-boot.bin
-#kernel=kfs.img
+kernel=@KERNEL_IMAGE@
