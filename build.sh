@@ -14,3 +14,7 @@ if [ ! -d src/tools ]; then
 	echo "Downloading Raspberry Pi tools"
 	git clone git@github.com:Naegolus/tools src/tools
 fi
+
+# Apply patches
+patches=$(ls -1 patches/*.patch)
+patch -p 1 -d src/linux < ${patches}
