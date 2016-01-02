@@ -23,14 +23,14 @@ if [ ! -d src/tools ]; then
 	git clone git@github.com:Naegolus/tools src/tools
 fi
 
-# Apply patches
-patches=$(ls -1 patches/*.patch)
-patch -r - --forward --strip=1 --directory=src/linux < ${patches}
-
 # Configure kernel
 if [ ! -e src/linux/.config ]; then
 	make ${kopt} bcmrpi_defconfig
 fi
+
+# Apply patches
+patches=$(ls -1 patches/*.patch)
+patch -r - --forward --strip=1 --directory=src/linux < ${patches}
 
 # Build kernel, modules and dtb files
 make ${kopt} zImage modules dtbs
