@@ -30,7 +30,10 @@ fi
 
 # Apply patches
 patches=$(ls -1 patches/*.patch)
-patch -r - --forward --strip=1 --directory=src/linux < ${patches}
+for p in ${patches}
+do
+	patch -r - --forward --strip=1 --directory=src/linux < ${p}
+done
 
 # Build kernel, modules and dtb files
 make ${kopt} zImage modules dtbs
