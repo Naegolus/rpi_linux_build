@@ -1,6 +1,14 @@
---- a/.config	2016-01-02 03:49:43.425951811 +0100
-+++ b/.config	2016-01-02 04:17:17.281717935 +0100
-@@ -1369,7 +1369,8 @@
+--- a/.config	2016-01-03 22:22:34.304806503 +0100
++++ b/.config	2016-01-03 22:21:48.695976782 +0100
+@@ -1337,6 +1337,7 @@
+ # Self-contained MTD device drivers
+ #
+ # CONFIG_MTD_DATAFLASH is not set
++CONFIG_MTD_M25P80=m
+ # CONFIG_MTD_SST25L is not set
+ # CONFIG_MTD_SLRAM is not set
+ # CONFIG_MTD_PHRAM is not set
+@@ -1369,7 +1370,8 @@
  #
  # CONFIG_MTD_LPDDR is not set
  # CONFIG_MTD_LPDDR2_NVM is not set
