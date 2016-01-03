@@ -1,14 +1,19 @@
 #!/bin/sh
 
+allsec="firmware,config,dts,kernel,modules"
+defsec="${allsec}"
+
 if [ "$1" == "" ]; then
 	echo "Usage: $0 <ip> [section]"
 	echo ""
-	echo "sections: boot,dts,kernel,modules"
+	echo "sections"
+	echo "  available: ${allsec}"
+	echo "  default:   ${defsec}"
 	exit 1
 fi
 
 if [ "$2" == "" ]; then
-	sections="boot,dts,kernel,modules"
+	sections="${defsec}"
 else
 	sections="$2"
 fi
@@ -18,10 +23,15 @@ kvers=$(cat src/linux/include/generated/utsrelease.h | cut --delimiter="\"" --fi
 
 for s in ${sect}
 do
-	if [ "$s" == "boot" ]; then
-		echo "### Downloading boot files"
+	if [ "$s" == "firmware" ]; then
+		echo "### Downloading firmware files"
 		bootfiles=$(ls -1 output/boot/ | grep --invert-match --extended-regexp "overlays|bcm2708|config|linux.*img" | sed "s:^:output/boot/:")
 		scp ${bootfiles} root@$1:/boot/.
+	fi
+
+	if [ "$s" == "config" ]; then
+		echo "### Downloading kernel image and config file"
+		scp output/boot/config.txt root@$1:/boot/.
 	fi
 
 	if [ "$s" == "dts" ]; then
@@ -34,7 +44,7 @@ do
 
 	if [ "$s" == "kernel" ]; then
 		echo "### Downloading kernel image and config file"
-		scp output/boot/config.txt output/boot/linux-${kvers}.img root@$1:/boot/.
+		scp output/boot/linux-${kvers}.img root@$1:/boot/.
 	fi
 
 	if [ "$s" == "modules" ]; then
