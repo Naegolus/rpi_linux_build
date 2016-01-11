@@ -38,6 +38,13 @@ if [ ! -e src/linux/.config ]; then
 	make ${kopt} olddefconfig
 fi
 
+# Apply patches
+patches=$(ls -1 patches/*.patch)
+for p in ${patches}
+do
+	patch -r - --forward --strip=1 --directory=src/linux < ${p}
+done
+
 # Build kernel, modules and dtb files
 make ${kopt} zImage modules dtbs
 
