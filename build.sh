@@ -67,7 +67,7 @@ src/tools/mkimage/mkknlimg --dtok src/linux/arch/arm/boot/zImage output/boot/lin
 
 # Install device tree files
 cp src/linux/arch/arm/boot/dts/bcm2708-rpi-b.dtb output/boot/.
-cp src/linux/arch/arm/boot/dts/overlays/*.dtb output/boot/overlays/.
+cp src/linux/arch/arm/boot/dts/overlays/*.dtbo output/boot/overlays/.
 
 # Install boot files
 bootfiles=$(ls -1 boot_files | grep --invert-match config.txt.in | sed "s:^:boot_files/:")
