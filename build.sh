@@ -15,7 +15,8 @@ rm -rf output
 # Download repositories
 if [ ! -d src/linux ]; then
 	echo "Downloading Raspberry Pi linux"
-	git clone git@github.com:Naegolus/linux.git src/linux
+	#git clone git@github.com:Naegolus/linux.git src/linux
+	git clone https://github.com/raspberrypi/linux.git
 fi
 
 if [ ! -d src/tools ]; then
