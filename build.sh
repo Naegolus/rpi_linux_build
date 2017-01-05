@@ -4,7 +4,7 @@ wd=$(pwd)
 
 export KERNEL=kernel
 export ARCH=arm
-export CROSS_COMPILE=arm-linux-gnu-
+export CROSS_COMPILE=arm-linux-gnueabihf-
 export INSTALL_MOD_PATH=${wd}/output
 
 kopt="--directory=src/linux --jobs=9"
