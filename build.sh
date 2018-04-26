@@ -2,7 +2,7 @@
 
 wd=$(pwd)
 
-export KERNEL=kernel
+export KERNEL=kernel7
 export ARCH=arm
 export CROSS_COMPILE=arm-linux-gnueabihf-
 export INSTALL_MOD_PATH=${wd}/output
@@ -26,7 +26,7 @@ fi
 
 # Configure kernel
 if [ ! -e src/linux/.config ]; then
-	make ${kopt} bcmrpi_defconfig
+	make ${kopt} bcm2709_defconfig
 
 	# Apply patches
 	patches=$(ls -1 patches/*.patch)
@@ -36,7 +36,7 @@ if [ ! -e src/linux/.config ]; then
 	done
 
 	# Create default values for new defines in configuration file
-	make ${kopt} olddefconfig
+	#make ${kopt} olddefconfig
 fi
 
 # Apply patches
@@ -57,16 +57,18 @@ kvers=$(cat src/linux/include/generated/utsrelease.h | cut --delimiter="\"" --fi
 make ${kopt} modules_install
 
 tar --create --gzip --file=output/modules-${kvers}.tar.gz --directory=output lib
-rm -rf output/lib
+#rm -rf output/lib
 
 # Create boot directory
 mkdir -p output/boot/overlays
 
 # Install kernel
-src/tools/mkimage/mkknlimg --dtok src/linux/arch/arm/boot/zImage output/boot/linux-${kvers}.img
+#src/tools/mkimage/mkknlimg --dtok src/linux/arch/arm/boot/zImage output/boot/linux-${kvers}.img
+cp src/linux/arch/arm/boot/zImage output/boot/linux-${kvers}.img
 
 # Install device tree files
 cp src/linux/arch/arm/boot/dts/bcm2708-rpi-b.dtb output/boot/.
+cp src/linux/arch/arm/boot/dts/bcm2708-rpi-0-w.dtb output/boot/.
 cp src/linux/arch/arm/boot/dts/overlays/*.dtbo output/boot/overlays/.
 
 # Install boot files
