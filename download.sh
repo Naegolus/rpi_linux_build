@@ -38,7 +38,7 @@ do
 		echo "### Downloading device tree"
 		ssh root@$1 'mkdir -p /boot/overlays'
 		scp output/boot/bcm2708-rpi-b.dtb root@$1:/boot/.
-		overlays=$(ls -1 output/boot/overlays/*.dtb)
+		overlays=$(ls -1 output/boot/overlays/*.dtbo)
 		scp ${overlays} root@$1:/boot/overlays/.
 	fi
 
